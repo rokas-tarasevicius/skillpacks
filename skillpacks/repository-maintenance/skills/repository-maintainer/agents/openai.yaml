@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Maintainer"
+  short_description: "Maintain repositories and issue lifecycles safely."
+  default_prompt: "Use $repository-maintainer to perform this repository operation and leave every touched issue, relationship, pull request, and Project state truthful."

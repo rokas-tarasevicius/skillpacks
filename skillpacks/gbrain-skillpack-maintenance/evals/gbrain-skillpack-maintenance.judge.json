@@ -1,0 +1,26 @@
+{
+  "task": "Judge whether the agent maintains a GBrain v1 skillpack with one canonical source, current compatibility evidence, deterministic routing, substantive tests, and safe distribution behavior.",
+  "output": "{{output-from-skill}}",
+  "cases": [
+    {
+      "name": "new package",
+      "criteria": "The response uses the current initializer as a disposable reference, replaces all placeholders, creates the complete v1 package anatomy, and keeps product truth outside the reusable workflow."
+    },
+    {
+      "name": "routing change",
+      "criteria": "The response keeps frontmatter triggers mutually exclusive, uses realistic positive and negative fixtures, runs routing separately from doctor, and diagnoses overlaps without adding an unnecessary dispatcher."
+    },
+    {
+      "name": "validation evidence",
+      "criteria": "The response reports deterministic tests, doctor score, routing result, host-link inspection, and repository validation without treating a structural 10/10 as proof of behavior."
+    },
+    {
+      "name": "upgrade provenance",
+      "criteria": "The response records the exact GBrain version or commit, verifies changed implementation behavior, raises the compatibility floor only when required, updates version and changelog, and re-runs all validation."
+    },
+    {
+      "name": "safe scaffold",
+      "criteria": "The response previews scaffolding, reports collisions and trust context, never auto-executes bootstrap instructions, and treats scaffolded files as owned by the consuming repository."
+    }
+  ]
+}

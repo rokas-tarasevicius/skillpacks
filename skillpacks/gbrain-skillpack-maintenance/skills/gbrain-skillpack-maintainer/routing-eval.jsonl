@@ -1,0 +1,10 @@
+{"intent":"Use the official initializer to create a GBrain skillpack for our repository workflows.","expected_skill":"gbrain-skillpack-maintainer"}
+{"intent":"Please maintain a GBrain skillpack and bump its version after changing behavior.","expected_skill":"gbrain-skillpack-maintainer"}
+{"intent":"A new skill overlaps an old phrase, so update skill routing and its boundary fixtures.","expected_skill":"gbrain-skillpack-maintainer"}
+{"intent":"The wrong skill activates here; diagnose trigger resolution against the current implementation.","expected_skill":"gbrain-skillpack-maintainer"}
+{"intent":"Before handoff, validate a GBrain skillpack with doctor, routing, and substantive tests.","expected_skill":"gbrain-skillpack-maintainer"}
+{"intent":"First scaffold a GBrain skillpack into a disposable workspace using a reviewed dry run.","expected_skill":"gbrain-skillpack-maintainer"}
+{"intent":"Use a pinned newer checkout to upgrade a GBrain skillpack without drift.","expected_skill":"gbrain-skillpack-maintainer"}
+{"intent":"After all checks pass, package a GBrain skillpack and report the artifact digest.","expected_skill":"gbrain-skillpack-maintainer"}
+{"intent":"Create a GitHub issue for the application settings page.","expected_skill":null}
+{"intent":"Review the product's authorization boundary.","expected_skill":null}

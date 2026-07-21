@@ -1,0 +1,10 @@
+{"intent":"Please create a GitHub issue for the retry behavior we just agreed on.","expected_skill":"repository-maintainer"}
+{"intent":"Can you edit a GitHub issue so its acceptance checks match the canonical decision?","expected_skill":"repository-maintainer"}
+{"intent":"Before pickup, manage GitHub labels and the milestone for this task.","expected_skill":"repository-maintainer"}
+{"intent":"For issues 42 and 37, link issue dependencies and verify their direction.","expected_skill":"repository-maintainer"}
+{"intent":"The implementation is complete; prepare a pull request and synchronize its issue.","expected_skill":"repository-maintainer"}
+{"intent":"Before handoff, audit repository hygiene and report policy violations.","expected_skill":"repository-maintainer"}
+{"intent":"After checks pass, move a Project item into the configured review status.","expected_skill":"repository-maintainer"}
+{"intent":"Please own an issue lifecycle from pickup through closure and downstream unblocking.","expected_skill":"repository-maintainer"}
+{"intent":"Compare this architecture plan against every related backlog outcome.","expected_skill":null}
+{"intent":"Implement the database migration described by issue 42.","expected_skill":null}

@@ -1,0 +1,43 @@
+{
+  "required_label_namespaces": {
+    "type": ["epic", "feature", "maintenance", "docs", "security", "bug"],
+    "area": [],
+    "priority": ["p0", "p1", "p2", "p3"],
+    "actor": ["agent", "human"]
+  },
+  "title_types": {
+    "type:epic": ["epic"],
+    "type:feature": ["feat", "build", "ci", "test", "refactor", "perf"],
+    "type:maintenance": ["chore", "build", "ci"],
+    "type:docs": ["docs"],
+    "type:security": ["security"],
+    "type:bug": ["fix"]
+  },
+  "forbidden_labels": ["todo", "in-progress", "blocked", "done"],
+  "allowed_state_labels": ["state:external-blocker"],
+  "required_sections": [
+    "Outcome",
+    "Delivery context",
+    "Execution contract",
+    "High-level design",
+    "Scope",
+    "Verifiable outcomes",
+    "Failure and refusal cases",
+    "Operational bounds",
+    "Dependencies",
+    "Canonical sources",
+    "Not in scope",
+    "Required evidence"
+  ],
+  "require_milestone": true,
+  "require_parent_for_non_epics": false,
+  "minimum_canonical_links": 1,
+  "minimum_evidence_rows": 3,
+  "minimum_outcomes": {"agent": 3, "human": 2},
+  "minimum_refusals": {"agent": 2, "human": 1},
+  "project_statuses": ["Backlog", "Ready", "In progress", "In review", "Done"],
+  "project_ready_status": "Ready",
+  "project_blocked_status": "Backlog",
+  "project_review_status": "In review",
+  "project_done_status": "Done"
+}
