@@ -1,0 +1,4 @@
+interface:
+  display_name: "GBrain Skillpack Maintainer"
+  short_description: "Maintain GBrain packages, routing, and evidence."
+  default_prompt: "Use $gbrain-skillpack-maintainer to apply the current GBrain v1 package, routing, trust, and validation contracts to this change."

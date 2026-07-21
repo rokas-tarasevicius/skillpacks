@@ -1,0 +1,10 @@
+{"intent":"Please reconcile information across issues after reading this approved architecture review.","expected_skill":"issue-curator"}
+{"intent":"Three recorded decisions changed, so refresh the issue graph to match them.","expected_skill":"issue-curator"}
+{"intent":"Before adding work, deduplicate backlog outcomes without losing history.","expected_skill":"issue-curator"}
+{"intent":"Now turn an approved plan into issues using the smallest consistent delta.","expected_skill":"issue-curator"}
+{"intent":"After the security review, map review findings to issues that already own those boundaries.","expected_skill":"issue-curator"}
+{"intent":"Use implementation evidence to curate a GitHub backlog while preserving completed history.","expected_skill":"issue-curator"}
+{"intent":"Use current blockers and ownership to reconcile Project backlog readiness.","expected_skill":"issue-curator"}
+{"intent":"Before you reconcile information across issues, pause because the plan still has an unresolved product choice.","expected_skill":"issue-curator"}
+{"intent":"Change the milestone on this one issue.","expected_skill":null}
+{"intent":"Run the repository unit tests.","expected_skill":null}

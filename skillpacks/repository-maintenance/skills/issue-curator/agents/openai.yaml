@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue Curator"
+  short_description: "Reconcile new facts into an existing issue graph."
+  default_prompt: "Use $issue-curator to reconcile this information into the smallest accurate GitHub issue-graph change."
