@@ -8,6 +8,7 @@ Usage: scripts/install.sh --target PATH [--all | --pack NAME ...] [--dry-run] [-
 Packs:
   repository-maintenance
   gbrain-skillpack-maintenance
+  conductor-session-analytics
 
 The installer scaffolds selected local packs through GBrain, creates thin
 .agents/skills and .claude/skills links, and maintains a delimited routing
@@ -40,7 +41,7 @@ while (($#)); do
       shift 2
       ;;
     --all)
-      packs=("repository-maintenance" "gbrain-skillpack-maintenance")
+      packs=("repository-maintenance" "gbrain-skillpack-maintenance" "conductor-session-analytics")
       shift
       ;;
     --dry-run)
@@ -94,6 +95,9 @@ pack_skills() {
       ;;
     gbrain-skillpack-maintenance)
       printf '%s\n' gbrain-skillpack-maintainer
+      ;;
+    conductor-session-analytics)
+      printf '%s\n' conductor-session-analytics
       ;;
     *)
       echo "ERROR: unsupported pack: $1" >&2
@@ -218,6 +222,7 @@ if ((skip_routing == 0)); then
     [[ -d "$target/skills/repository-maintainer" || $dry_run -eq 1 ]] && echo '| One GitHub repository object or issue lifecycle operation | `repository-maintainer` |'
     [[ -d "$target/skills/issue-curator" || $dry_run -eq 1 ]] && echo '| Reconcile plans, decisions, findings, or evidence across several issues | `issue-curator` |'
     [[ -d "$target/skills/gbrain-skillpack-maintainer" || $dry_run -eq 1 ]] && echo '| Create, validate, route, scaffold, package, or upgrade a GBrain skillpack | `gbrain-skillpack-maintainer` |'
+    [[ -d "$target/skills/conductor-session-analytics" || $dry_run -eq 1 ]] && echo '| Analyze local Codex, Claude, Cursor, or Conductor usage, spend, tools, and evidence by repository | `conductor-session-analytics` |'
     echo '| Product discovery and planning | GStack `/office-hours` or `/autoplan` |'
     echo '| Architecture review | GStack `/plan-eng-review` |'
     echo '| Unexplained failure | GStack `/investigate` |'
