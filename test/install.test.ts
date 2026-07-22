@@ -39,7 +39,7 @@ if [[ "\${6:-}" == "--dry-run" ]]; then exit 0; fi
 case "$(basename "$pack")" in
   repository-maintenance) skills=(repository-maintainer issue-curator) ;;
   gbrain-skillpack-maintenance) skills=(gbrain-skillpack-maintainer) ;;
-  conductor-session-analytics) skills=(conductor-session-analytics) ;;
+  machine-session-analytics) skills=(machine-session-analytics) ;;
   *) exit 2 ;;
 esac
 for skill in "\${skills[@]}"; do
@@ -68,7 +68,7 @@ test("installs canonical skills, host links, and idempotent routing", (context) 
     "repository-maintainer",
     "issue-curator",
     "gbrain-skillpack-maintainer",
-    "conductor-session-analytics",
+    "machine-session-analytics",
   ]) {
     assert.ok(existsSync(resolve(target, "skills", skill, "SKILL.md")));
     for (const host of [".agents", ".claude"]) {
@@ -131,9 +131,25 @@ test("installs one selected pack and can skip routing", (context) => {
   assert.equal(result.status, 0, result.stdout + result.stderr);
   assert.ok(existsSync(resolve(target, "skills", "repository-maintainer", "SKILL.md")));
   assert.equal(existsSync(resolve(target, "skills", "gbrain-skillpack-maintainer")), false);
-  assert.equal(existsSync(resolve(target, "skills", "conductor-session-analytics")), false);
+  assert.equal(existsSync(resolve(target, "skills", "machine-session-analytics")), false);
   assert.equal(readFileSync(resolve(target, "AGENTS.md"), "utf8"), "# Existing agent policy\n");
   assert.equal(existsSync(resolve(target, "CLAUDE.md")), false);
+});
+
+test("maps the former analytics pack name to the new canonical machine skill", (context) => {
+  const { root, target, bin } = fixture();
+  context.after(() => rmSync(root, { recursive: true, force: true }));
+  const result = spawnSync(
+    installer,
+    ["--target", target, "--pack", "conductor-session-analytics", "--skip-routing"],
+    {
+      encoding: "utf8",
+      env: { ...process.env, PATH: `${bin}:${process.env.PATH ?? ""}`, GBRAIN_ROOT: "" },
+    },
+  );
+  assert.equal(result.status, 0, result.stdout + result.stderr);
+  assert.ok(existsSync(resolve(target, "skills", "machine-session-analytics", "SKILL.md")));
+  assert.equal(existsSync(resolve(target, "skills", "conductor-session-analytics")), false);
 });
 
 test("refuses an incomplete routing marker before making changes", (context) => {

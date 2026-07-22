@@ -8,7 +8,7 @@ Versioned, product-neutral GBrain skillpacks for repository operations and skill
 |---|---|---|
 | [`repository-maintenance`](skillpacks/repository-maintenance/) | `repository-maintainer`, `issue-curator` | Maintain GitHub repositories and individual issue lifecycles; reconcile plans and evidence across an issue graph. |
 | [`gbrain-skillpack-maintenance`](skillpacks/gbrain-skillpack-maintenance/) | `gbrain-skillpack-maintainer` | Create, validate, route, scaffold, package, and upgrade GBrain v1 skillpacks. |
-| [`conductor-session-analytics`](skillpacks/conductor-session-analytics/) | `conductor-session-analytics` | Compare content-free Codex, Claude, Cursor, and Conductor usage, API-equivalent spend, tools, and evidence by repository across the machine. |
+| [`machine-session-analytics`](skillpacks/machine-session-analytics/) | `machine-session-analytics` | Compare content-free machine-wide Codex, Claude, and Cursor usage, API-equivalent pricing, tools, and evidence by repository; Conductor is optional enrichment. |
 
 The packs contain workflow policy, not product policy. A consuming repository remains responsible for its own canonical product documents, label vocabulary, GitHub Project configuration, validation commands, and authorization boundaries.
 
@@ -25,7 +25,7 @@ Install one pack:
 ```bash
 ./scripts/install.sh --target /path/to/project --pack repository-maintenance
 ./scripts/install.sh --target /path/to/project --pack gbrain-skillpack-maintenance
-./scripts/install.sh --target /path/to/project --pack conductor-session-analytics
+./scripts/install.sh --target /path/to/project --pack machine-session-analytics
 ```
 
 Preview every write first:

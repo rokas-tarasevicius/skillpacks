@@ -8,7 +8,7 @@ Usage: scripts/install.sh --target PATH [--all | --pack NAME ...] [--dry-run] [-
 Packs:
   repository-maintenance
   gbrain-skillpack-maintenance
-  conductor-session-analytics
+  machine-session-analytics
 
 The installer scaffolds selected local packs through GBrain, creates thin
 .agents/skills and .claude/skills links, and maintains a delimited routing
@@ -41,7 +41,7 @@ while (($#)); do
       shift 2
       ;;
     --all)
-      packs=("repository-maintenance" "gbrain-skillpack-maintenance" "conductor-session-analytics")
+      packs=("repository-maintenance" "gbrain-skillpack-maintenance" "machine-session-analytics")
       shift
       ;;
     --dry-run)
@@ -73,6 +73,12 @@ done
 [[ -d "$target" ]] || { echo "ERROR: target directory does not exist: $target" >&2; exit 2; }
 target="$(CDPATH= cd -- "$target" && pwd)"
 
+for index in "${!packs[@]}"; do
+  if [[ "${packs[$index]}" == "conductor-session-analytics" ]]; then
+    packs[$index]="machine-session-analytics"
+  fi
+done
+
 declare -a gbrain_command
 if [[ -n "${GBRAIN_ROOT:-}" ]]; then
   [[ -f "$GBRAIN_ROOT/src/cli.ts" ]] || {
@@ -96,8 +102,8 @@ pack_skills() {
     gbrain-skillpack-maintenance)
       printf '%s\n' gbrain-skillpack-maintainer
       ;;
-    conductor-session-analytics)
-      printf '%s\n' conductor-session-analytics
+    machine-session-analytics)
+      printf '%s\n' machine-session-analytics
       ;;
     *)
       echo "ERROR: unsupported pack: $1" >&2
@@ -222,7 +228,7 @@ if ((skip_routing == 0)); then
     [[ -d "$target/skills/repository-maintainer" || $dry_run -eq 1 ]] && echo '| One GitHub repository object or issue lifecycle operation | `repository-maintainer` |'
     [[ -d "$target/skills/issue-curator" || $dry_run -eq 1 ]] && echo '| Reconcile plans, decisions, findings, or evidence across several issues | `issue-curator` |'
     [[ -d "$target/skills/gbrain-skillpack-maintainer" || $dry_run -eq 1 ]] && echo '| Create, validate, route, scaffold, package, or upgrade a GBrain skillpack | `gbrain-skillpack-maintainer` |'
-    [[ -d "$target/skills/conductor-session-analytics" || $dry_run -eq 1 ]] && echo '| Analyze local Codex, Claude, Cursor, or Conductor usage, spend, tools, and evidence by repository | `conductor-session-analytics` |'
+    [[ -d "$target/skills/machine-session-analytics" || $dry_run -eq 1 ]] && echo '| Analyze all local Codex, Claude, or Cursor usage, pricing, tools, and evidence by repository | `machine-session-analytics` |'
     echo '| Product discovery and planning | GStack `/office-hours` or `/autoplan` |'
     echo '| Architecture review | GStack `/plan-eng-review` |'
     echo '| Unexplained failure | GStack `/investigate` |'
