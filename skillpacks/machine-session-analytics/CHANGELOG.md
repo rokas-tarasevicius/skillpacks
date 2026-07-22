@@ -2,6 +2,17 @@
 
 All notable changes to this package are documented here.
 
+## [0.3.1] - 2026-07-22
+
+### Changed
+
+- Reduce the agent-facing skill to a one-command launch workflow plus a concise guide to evidence locations, processing patterns, and available metrics.
+- Replace the multi-step bootstrap checklist with the single dashboard command; CLI and path overrides are now explicitly optional rather than preflight steps.
+
+### Fixed
+
+- Make the dashboard command idempotent: rerunning it recognizes a compatible server already using the selected port, reuses it, and opens the existing dashboard instead of failing.
+
 ## [0.3.0] - 2026-07-22
 
 ### Changed

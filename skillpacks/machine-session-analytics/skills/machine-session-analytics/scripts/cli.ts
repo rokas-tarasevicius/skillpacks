@@ -36,7 +36,7 @@ for (let index = 2; index < process.argv.length; index += 1) {
 }
 
 if (process.argv.includes("--help")) {
-  process.stdout.write(`Machine Session Analytics 0.3.0
+  process.stdout.write(`Machine Session Analytics 0.3.1
 
 Usage: node scripts/cli.ts [options]
 
@@ -61,7 +61,7 @@ Options:
   process.exit(0);
 }
 if (process.argv.includes("--version")) {
-  process.stdout.write("0.3.0\n");
+  process.stdout.write("0.3.1\n");
   process.exit(0);
 }
 

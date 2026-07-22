@@ -45,16 +45,17 @@ for (let index = 2; index < process.argv.length; index += 1) {
   }
 }
 if (process.argv.includes("--help")) {
-  process.stdout.write(`Machine Session Analytics server 0.3.0
+  process.stdout.write(`Machine Session Analytics server 0.3.1
 
 Usage: node scripts/server.ts [--open] [--port PORT] [analysis options]
 The server always binds to 127.0.0.1 and accepts read-only GET requests.
-Run cli.ts --help for the shared analysis options.
+With --open, this one command performs the complete scan and opens the dashboard.
+If a compatible dashboard already uses the port, the command reuses it.
 `);
   process.exit(0);
 }
 if (process.argv.includes("--version")) {
-  process.stdout.write("0.3.0\n");
+  process.stdout.write("0.3.1\n");
   process.exit(0);
 }
 
@@ -223,8 +224,47 @@ if (!Number.isInteger(port) || port < 1024 || port > 65_535) {
   );
 }
 
+const dashboardUrl = `http://127.0.0.1:${port}`;
+
+async function openDashboard(): Promise<void> {
+  await new Promise<void>((resolve) => {
+    execFile("open", [dashboardUrl], (error) => {
+      if (error) process.stderr.write(`Could not open the browser: ${error.message}\n`);
+      resolve();
+    });
+  });
+}
+
+async function compatibleDashboardIsRunning(): Promise<boolean> {
+  try {
+    const response = await fetch(`${dashboardUrl}/api/health`, {
+      signal: AbortSignal.timeout(2_000),
+    });
+    if (!response.ok) return false;
+    const body = await response.json() as { service?: unknown; status?: unknown };
+    return body.service === "machine-session-analytics" && body.status === "ok";
+  } catch {
+    return false;
+  }
+}
+
+server.on("error", (error: NodeJS.ErrnoException) => {
+  void (async () => {
+    if (error.code === "EADDRINUSE" && await compatibleDashboardIsRunning()) {
+      process.stdout.write(`Machine session analytics already running: ${dashboardUrl}\n`);
+      if (process.argv.includes("--open")) await openDashboard();
+      process.exit(0);
+    }
+    if (error.code === "EADDRINUSE") {
+      process.stderr.write(`Port ${port} is already in use by another local service.\n`);
+    } else {
+      process.stderr.write(`Machine session analytics could not start: ${safeError(error)}\n`);
+    }
+    process.exit(1);
+  })();
+});
+
 server.listen(port, "127.0.0.1", () => {
-  const dashboardUrl = `http://127.0.0.1:${port}`;
   process.stdout.write(`Machine session analytics ready: ${dashboardUrl}\n`);
   process.stdout.write("Read-only local analysis; transcript message and reasoning content is not returned.\n");
   const warmup = analytics(false);
@@ -240,11 +280,6 @@ server.listen(port, "127.0.0.1", () => {
       process.stderr.write(`Session analytics warmup failed: ${safeError(error)}\n`);
     });
   if (process.argv.includes("--open")) {
-    const openDashboard = () => {
-      execFile("open", [dashboardUrl], (error) => {
-        if (error) process.stderr.write(`Could not open the browser: ${error.message}\n`);
-      });
-    };
     void warmup.then(openDashboard, openDashboard);
   }
 });

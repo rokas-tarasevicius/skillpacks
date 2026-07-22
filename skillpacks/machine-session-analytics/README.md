@@ -12,15 +12,17 @@ The package includes a dependency-free localhost dashboard, a human/JSON CLI, st
 
 No network access is required. The dashboard binds only to `127.0.0.1`, has no CORS or telemetry, and never returns transcript content, raw identifiers, workspace paths, repository remotes, or local exception details.
 
-## Run after scaffolding
+## Run
 
 ```bash
-node .agents/skills/machine-session-analytics/scripts/cli.ts
-node .agents/skills/machine-session-analytics/scripts/cli.ts --json
 node .agents/skills/machine-session-analytics/scripts/server.ts --open
 ```
 
-The default scope unions active and archived Codex history, Claude Code and Claude Desktop local-agent history, and modern/legacy Cursor composer history from their machine-wide stores. Every provider session is assigned through its recorded working directory, Cursor workspace mapping, optional Conductor workspace mapping, and longest matching Git root. This covers work under IDE project folders, Documents, worktrees, and other locations without assuming one app owns the repository list. When present, Conductor contributes registered zero-session repositories and hidden workspace records. Narrow intentionally with `--repo-id`, `--repo-name`, `--repo-root`, or `--repo-remote`, or use `--exclude-hidden`. Run `cli.ts --help` for evidence-path overrides.
+This is the complete default workflow. The one command discovers local evidence, analyzes it, starts or reuses the loopback dashboard, and opens it in the browser. No setup checklist, preprocessing command, Conductor database, or repository selection is required.
+
+For explicitly requested terminal-only output, use `cli.ts`; add `--json` for a machine-readable snapshot.
+
+The default scope unions active and archived Codex history, Claude Code and Claude Desktop local-agent history, and modern/legacy Cursor composer history from their machine-wide stores. Every provider session is assigned through its recorded working directory, Cursor workspace mapping, optional Conductor workspace mapping, and longest matching Git root. This covers work under IDE project folders, Documents, worktrees, and other locations without assuming one app owns the repository list. When present, Conductor contributes registered zero-session repositories and hidden workspace records. Narrow intentionally with `--repo-id`, `--repo-name`, `--repo-root`, or `--repo-remote`, or use `--exclude-hidden`.
 
 Database-only historical stubs are not counted as sessions. A legacy Conductor row is recovered only when exactly one provider transcript matches its provider, working directory, and start time. Cursor history contributes modern bubble token/tool metrics and provider-reported local usage value where available; Cursor value is not plotted by day because the local store does not retain per-call cost timestamps.
 

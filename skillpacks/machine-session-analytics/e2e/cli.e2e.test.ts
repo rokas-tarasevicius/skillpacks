@@ -17,11 +17,12 @@ test("CLI and server expose deterministic help and version contracts", () => {
 
   const cliVersion = spawnSync(process.execPath, [cli, "--version"], { encoding: "utf8" });
   assert.equal(cliVersion.status, 0, cliVersion.stderr);
-  assert.equal(cliVersion.stdout.trim(), "0.3.0");
+  assert.equal(cliVersion.stdout.trim(), "0.3.1");
 
   const serverHelp = spawnSync(process.execPath, [server, "--help"], { encoding: "utf8" });
   assert.equal(serverHelp.status, 0, serverHelp.stderr);
   assert.match(serverHelp.stdout, /always binds to 127\.0\.0\.1/);
+  assert.match(serverHelp.stdout, /this one command performs the complete scan/);
 
   const unknown = spawnSync(process.execPath, [cli, "--unknown"], { encoding: "utf8" });
   assert.equal(unknown.status, 2);
