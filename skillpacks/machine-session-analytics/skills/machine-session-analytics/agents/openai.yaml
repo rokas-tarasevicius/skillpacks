@@ -1,0 +1,4 @@
+interface:
+  display_name: "Machine Session Analytics"
+  short_description: "Compare private session metrics across local repositories."
+  default_prompt: "Use $machine-session-analytics to scan all local Codex, Claude, and Cursor evidence, map every session to its repository, calculate content-free usage and API-equivalent metrics, and launch the read-only localhost dashboard."

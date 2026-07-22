@@ -5,7 +5,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const skillRoot = resolve(here, "../skills/conductor-session-analytics");
+const skillRoot = resolve(here, "../skills/machine-session-analytics");
 const skill = readFileSync(resolve(skillRoot, "SKILL.md"), "utf8");
 const metrics = readFileSync(
   resolve(skillRoot, "references/metrics-catalog.md"),
@@ -21,15 +21,17 @@ const manifest = JSON.parse(
   readFileSync(resolve(here, "../skillpack.json"), "utf8"),
 ) as { skills?: string[]; unit_tests?: string[] };
 test("ships session analytics as a separate manifest-listed skill", () => {
-  assert.ok(manifest.skills?.includes("skills/conductor-session-analytics"));
+  assert.ok(manifest.skills?.includes("skills/machine-session-analytics"));
   assert.ok(
     manifest.unit_tests?.includes(
-      "skills/conductor-session-analytics/scripts/*.test.ts",
+      "skills/machine-session-analytics/scripts/*.test.ts",
     ),
   );
-  assert.match(skill, /union of active and archived global Codex transcripts, Claude Code plus Claude Desktop local-agent transcripts, Cursor's local composer and bubble history/);
+  assert.match(skill, /union of active and archived global Codex transcripts, Claude Code plus Claude Desktop local-agent transcripts, and Cursor's global\/workspace composer and bubble history/);
   assert.match(skill, /Omit database-only stubs rather than guessing or double-counting them/);
-  assert.match(skill, /node \.agents\/skills\/conductor-session-analytics\/scripts\/server\.ts --open/);
+  assert.match(skill, /node \.agents\/skills\/machine-session-analytics\/scripts\/server\.ts --open/);
+  assert.match(skill, /not limited to repositories registered in another application/);
+  assert.match(skill, /absence of that database must not narrow provider discovery/);
 });
 
 test("enforces a content-free localhost-only interface", () => {

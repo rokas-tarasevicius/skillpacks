@@ -23,9 +23,9 @@ node --test skillpacks/repository-maintenance/test/*.test.ts
 node --test skillpacks/repository-maintenance/e2e/*.test.ts
 node --test skillpacks/gbrain-skillpack-maintenance/test/*.test.ts
 node --test skillpacks/gbrain-skillpack-maintenance/e2e/*.test.ts
-node --test skillpacks/conductor-session-analytics/test/*.test.ts
-node --test skillpacks/conductor-session-analytics/skills/conductor-session-analytics/scripts/*.test.ts
-node --test skillpacks/conductor-session-analytics/e2e/*.test.ts
+node --test skillpacks/machine-session-analytics/test/*.test.ts
+node --test skillpacks/machine-session-analytics/skills/machine-session-analytics/scripts/*.test.ts
+node --test skillpacks/machine-session-analytics/e2e/*.test.ts
 node --test test/*.test.ts
 
 python3 - <<'PY'
@@ -37,7 +37,7 @@ ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
 print("Python syntax passed")
 PY
 
-for pack in repository-maintenance gbrain-skillpack-maintenance conductor-session-analytics; do
+for pack in repository-maintenance gbrain-skillpack-maintenance machine-session-analytics; do
   "${gbrain_command[@]}" skillpack doctor "skillpacks/$pack" --quick --json
   "${gbrain_command[@]}" routing-eval --skills-dir "skillpacks/$pack/skills"
 done

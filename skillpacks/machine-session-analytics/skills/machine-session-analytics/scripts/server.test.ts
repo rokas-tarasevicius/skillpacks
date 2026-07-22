@@ -97,7 +97,7 @@ test("serves a localhost-only read-only analytics API and dashboard", { timeout:
       stderr += chunk;
     });
     await waitFor(
-      () => stdout.includes("Conductor session analytics ready:"),
+      () => stdout.includes("Machine session analytics ready:"),
       () => `Server did not start. stdout=${stdout} stderr=${stderr}`,
     );
 
@@ -105,7 +105,7 @@ test("serves a localhost-only read-only analytics API and dashboard", { timeout:
     const health = await fetch(`${origin}/api/health`);
     assert.equal(health.status, 200);
     const healthBody = (await health.json()) as Record<string, unknown>;
-    assert.equal(healthBody.service, "conductor-session-analytics");
+    assert.equal(healthBody.service, "machine-session-analytics");
     assert.equal(healthBody.status, "ok");
     assert.ok(["building", "not-started", "ready"].includes(String(healthBody.snapshot)));
     assert.match(health.headers.get("content-security-policy") ?? "", /frame-ancestors 'none'/);
