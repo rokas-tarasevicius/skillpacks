@@ -12,6 +12,8 @@ Versioned, product-neutral GBrain skillpacks for repository operations and skill
 
 The packs contain workflow policy, not product policy. A consuming repository remains responsible for its own canonical product documents, label vocabulary, GitHub Project configuration, validation commands, and authorization boundaries.
 
+When this repository is opened in Conductor on macOS, `session-analytics` is the default local run script. It starts the bundled machine-session-analytics dashboard directly from this checkout and opens it in the browser.
+
 ## Install into a repository
 
 Requirements: Git, Python 3, and a current `gbrain` CLI. Run from this checkout:
