@@ -78,6 +78,10 @@ test("analyzes Codex, Claude, and Cursor sessions without returning transcript c
       uncachedInputTokens: 150,
     });
     assert.equal(claude.cost.totalUsd, 0.0036375);
+    assert.deepEqual(
+      claude.models.map(({ model, priced }) => ({ model, priced })),
+      [{ model: "claude-opus-5", priced: true }],
+    );
     assert.deepEqual(claude.tools, { Bash: 1, Read: 1 });
     assert.equal(claude.metrics.assistantMessages, 2);
     assert.equal(claude.metrics.userTurns, 1);

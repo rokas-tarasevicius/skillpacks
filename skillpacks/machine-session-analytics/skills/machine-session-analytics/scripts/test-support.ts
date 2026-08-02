@@ -183,7 +183,7 @@ export async function createSessionAnalyticsFixture(root: string): Promise<Sessi
       "2026-07-20T12:00:00Z",
       "2026-07-20T13:00:00Z",
       claudeSessionId,
-      "claude-opus-4-8",
+      "claude-opus-5",
       "workspace-claude",
     );
   database.close();
@@ -372,7 +372,7 @@ export async function createSessionAnalyticsFixture(root: string): Promise<Sessi
           },
         ],
         id: "message-one",
-        model: "claude-opus-4-8",
+        model: "claude-opus-5",
         role: "assistant",
         usage: {
           cache_creation: {
@@ -402,7 +402,7 @@ export async function createSessionAnalyticsFixture(root: string): Promise<Sessi
           },
         ],
         id: "message-one",
-        model: "claude-opus-4-8",
+        model: "claude-opus-5",
         role: "assistant",
         usage: {
           cache_creation: {
@@ -439,7 +439,7 @@ export async function createSessionAnalyticsFixture(root: string): Promise<Sessi
     message: {
       content: [{ id: "tool-two", input: { path: "secret-path" }, name: "Read", type: "tool_use" }],
       id: "message-two",
-      model: "claude-opus-4-8",
+      model: "claude-opus-5",
       role: "assistant",
       usage: {
         cache_creation_input_tokens: 0,
