@@ -190,6 +190,31 @@ test("scans every visible Conductor repository and preserves zero-session reposi
   }
 });
 
+test("retains end-to-end pricing for Claude Opus 4.8", async () => {
+  const temporaryDirectory = await mkdtemp(join(tmpdir(), "machine-session-opus-4-8-"));
+  try {
+    const fixture = await createSessionAnalyticsFixture(temporaryDirectory, "claude-opus-4-8");
+    const result = await analyzeRepositorySessions({
+      claudeRoot: fixture.claudeRoot,
+      codexArchiveRoot: fixture.codexArchiveRoot,
+      codexRoot: fixture.codexRoot,
+      cursorDatabasePath: fixture.cursorDatabasePath,
+      databasePath: fixture.databasePath,
+      repositoryRemote: fixture.remote,
+      repositoryRoot: fixture.repositoryRoot,
+    });
+    const claude = result.sessions.find(({ provider }) => provider === "claude");
+    assert.ok(claude);
+    assert.deepEqual(
+      claude.models.map(({ model, priced }) => ({ model, priced })),
+      [{ model: "claude-opus-4-8", priced: true }],
+    );
+    assert.equal(claude.cost.totalUsd, 0.0036375);
+  } finally {
+    await rm(temporaryDirectory, { force: true, recursive: true });
+  }
+});
+
 test("keeps unknown provider models unpriced instead of applying a database-model fallback", async () => {
   const temporaryDirectory = await mkdtemp(join(tmpdir(), "conductor-session-unpriced-"));
   try {
