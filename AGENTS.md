@@ -16,7 +16,6 @@ This repository publishes product-neutral GBrain v1 skillpacks. Keep each packag
 | One repository, issue, label, milestone, dependency, branch, commit, pull request, Project item, or issue lifecycle operation | `repository-maintainer` |
 | Reconcile a plan, review, decision, discovery, or implementation evidence across several existing issues | `issue-curator` |
 | Create, diagnose, validate, route, scaffold, package, publish, or upgrade a GBrain skillpack | `gbrain-skillpack-maintainer` |
-| Analyze all local Codex, Claude, or Cursor usage, pricing, tools, and evidence by repository, optionally enriched by Conductor | `machine-session-analytics` |
 | Product discovery or forcing questions | GStack `/office-hours` |
 | Multi-discipline plan review | GStack `/autoplan` |
 | Architecture planning | GStack `/plan-eng-review` |

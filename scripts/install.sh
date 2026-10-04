@@ -8,7 +8,6 @@ Usage: scripts/install.sh --target PATH [--all | --pack NAME ...] [--dry-run] [-
 Packs:
   repository-maintenance
   gbrain-skillpack-maintenance
-  machine-session-analytics
 
 The installer scaffolds selected local packs through GBrain, creates thin
 .agents/skills and .claude/skills links, and maintains a delimited routing
@@ -41,7 +40,7 @@ while (($#)); do
       shift 2
       ;;
     --all)
-      packs=("repository-maintenance" "gbrain-skillpack-maintenance" "machine-session-analytics")
+      packs=("repository-maintenance" "gbrain-skillpack-maintenance")
       shift
       ;;
     --dry-run)
@@ -73,9 +72,10 @@ done
 [[ -d "$target" ]] || { echo "ERROR: target directory does not exist: $target" >&2; exit 2; }
 target="$(CDPATH= cd -- "$target" && pwd)"
 
-for index in "${!packs[@]}"; do
-  if [[ "${packs[$index]}" == "conductor-session-analytics" ]]; then
-    packs[$index]="machine-session-analytics"
+for pack in "${packs[@]}"; do
+  if [[ "$pack" == "machine-session-analytics" || "$pack" == "conductor-session-analytics" ]]; then
+    echo "ERROR: $pack moved out of this repository; session analytics is now the standalone session-analytics project" >&2
+    exit 2
   fi
 done
 
@@ -101,9 +101,6 @@ pack_skills() {
       ;;
     gbrain-skillpack-maintenance)
       printf '%s\n' gbrain-skillpack-maintainer
-      ;;
-    machine-session-analytics)
-      printf '%s\n' machine-session-analytics
       ;;
     *)
       echo "ERROR: unsupported pack: $1" >&2
@@ -228,7 +225,6 @@ if ((skip_routing == 0)); then
     [[ -d "$target/skills/repository-maintainer" || $dry_run -eq 1 ]] && echo '| One GitHub repository object or issue lifecycle operation | `repository-maintainer` |'
     [[ -d "$target/skills/issue-curator" || $dry_run -eq 1 ]] && echo '| Reconcile plans, decisions, findings, or evidence across several issues | `issue-curator` |'
     [[ -d "$target/skills/gbrain-skillpack-maintainer" || $dry_run -eq 1 ]] && echo '| Create, validate, route, scaffold, package, or upgrade a GBrain skillpack | `gbrain-skillpack-maintainer` |'
-    [[ -d "$target/skills/machine-session-analytics" || $dry_run -eq 1 ]] && echo '| Analyze all local Codex, Claude, or Cursor usage, pricing, tools, and evidence by repository | `machine-session-analytics` |'
     echo '| Product discovery and planning | GStack `/office-hours` or `/autoplan` |'
     echo '| Architecture review | GStack `/plan-eng-review` |'
     echo '| Unexplained failure | GStack `/investigate` |'
